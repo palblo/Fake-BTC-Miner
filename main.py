@@ -18,6 +18,7 @@ print(Colorate.Vertical(Colors.red_to_yellow, f'''
 ▀█▄░▀▀█▀█▀░░▄█▀
   ▀▀█▄▄▄▄▄█▀▀
 
+Pąblo#4316 |https://github.com/palblo/FakeBTCminer
 '''))
 wallet = Write.Input('Wallet address» ', Colors.red_to_yellow, interval=0.00005)
 print(Colorate.Horizontal(Colors.green_to_white, f'wallet set up successfully! : {wallet}', 1))

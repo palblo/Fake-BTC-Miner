@@ -1,35 +1,60 @@
-from pystyle import Colorate, Colors, Write
-import random
+import random, os, requests
 from time import sleep
+from colorama import Fore
 
-chars = '1Aa2Bb3Cc4Dd5Ee6Ff7Gg8Hh9IiLlMmNnOoPpQqRrSsTtUuVvWwKkZz'
+os.system('cls')
+
+licensekey = '2407503423363549'
+chars = '1a2b3c4d5e6f7g8h9ilmnopqrstuvwkz'
 numbers = '123456789'
 numbers2 = '12345'
 
-fakenumber = int(''.join((random.choice(numbers)for i in range(3))))
+def main():
+  os.system('cls')
+  fakenumber = int(''.join((random.choice(numbers)for i in range(4))))
+  print(Fore.MAGENTA + f'''
+┌┐┌┬┐┌─┐  ┌┬┐┬┌┐┌┌─┐┬─┐
+├┴┐│ │    │││││││├┤ ├┬┘  
+└─┘┴ └─┘  ┴ ┴┴┘└┘└─┘┴└─ 
 
-print(Colorate.Vertical(Colors.red_to_yellow, f'''
-  ▄▄█▀▀▀▀▀█▄▄
-▄█▀░░▄░▄░░░░▀█▄
-█░░░▀█▀▀▀▀▄░░░█ ┌┐┌┬┐┌─┐  ┌┬┐┬┌┐┌┌─┐┬─┐
-█░░░░█▄▄▄▄▀░░░█ ├┴┐│ │    │││││││├┤ ├┬┘  
-█░░░░█░░░░█░░░█ └─┘┴ └─┘  ┴ ┴┴┘└┘└─┘┴└─
-▀█▄░▀▀█▀█▀░░▄█▀
-  ▀▀█▄▄▄▄▄█▀▀ 
+Pąblo#4316 | github.com/palblo/FakeBTCminer
+  ''')
+  wallet = input(Fore.RED + 'Wallet: ')
+  check = requests.get('https://blockchain.info/q/addressbalance/' + wallet)
+  print(Fore.CYAN + 'Checking wallet...')
+  if check.status_code == 200:
+     print(Fore.CYAN + 'Wallet found')
+  else:
+     print(Fore.BLUE + 'Invalid Wallet')
+     sleep(1)
+     main()
+  print(Fore.BLUE + f'Wallet set up successfully! : {wallet}')
+  input(Fore.CYAN + '\nPress enter to start mining!\n')
 
-https://github.com/palblo/FakeBTCminer
+  for i in range(fakenumber):
+      fakewallet= ''.join((random.choice(chars)for i in range(40)))
+      randomnumber = ''.join((random.choice(numbers2)for i in range(2)))
+      fakepassword= ''.join((random.choice(chars)for i in range(10)))
 
-'''))
-wallet = Write.Input('Wallet address -> ', Colors.red_to_yellow, interval=0.00005)
-print(Colorate.Horizontal(Colors.green_to_white, f'\nwallet set up successfully! : {wallet}', 1))
-Write.Input('\nPress enter to start mining!\n', Colors.red_to_yellow, interval=0.00005)
+      #print the resoults
+      print(Fore.CYAN + '[-] ' + Fore.RED + 'WALLET : bc1' + fakewallet + Fore.CYAN + ' | INVALID | 0.00')
+      sleep(0.09)
+  print(Fore.CYAN + '[+] ' + Fore.GREEN + 'WALLET : bc1' + fakewallet + Fore.CYAN + ' | VALID | 0.' + randomnumber)
+  print(Fore.CYAN + 'The bitcoins will be transferred to your bitcoin address...')
+  input(Fore.CYAN + 'Press enter to exit')
+  main()
 
-for i in range(fakenumber):
-    fakewallet= ''.join((random.choice(chars)for i in range(24)))
-    randomnumber = ''.join((random.choice(numbers2)for i in range(2)))
-    fakepassword= ''.join((random.choice(chars)for i in range(10)))
-    print(Colorate.Horizontal(Colors.red_to_white, 'WALLET : ' + fakewallet + ' | PASS : ' + fakepassword + ' | INVALID | 0.00', 1))
-    sleep(0.09)
-print(Colorate.Horizontal(Colors.green_to_white, '\nWALLET : ' + fakewallet + ' | PASS : ' + fakepassword + ' | VALID | 0.' + randomnumber, 1))
-print(Colorate.Horizontal(Colors.green_to_white, '\nThe bitcoins will be transferred to your bitcoin address...', 1))
-Write.Input('\nPRESS ENTER TO EXIT', Colors.red_to_yellow, interval=0.00005)
+def defkey():
+  keyin = input(Fore.RED + 'License key: ')
+  if keyin == licensekey:
+    print(Fore.GREEN + 'Key is valid!')
+    sleep(1)
+    os.system('cls')
+    main()
+  else:
+    print(Fore.RED + 'Invalid Key!')
+    sleep(1)
+    os.system('cls')
+    defkey()
+
+defkey()
